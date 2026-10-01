@@ -1,7 +1,9 @@
+import { isValidPin } from '@/business/auth';
+import { SecureInput } from '@/components/SecureInput';
 import { getPin, saveAuthToken, savePin } from '@/services/secureStorage';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function Login() {
   const [pin, setPin] = useState('');
@@ -16,10 +18,6 @@ export default function Login() {
       }
     });
   }, []);
-
-  function isValidPin(value: string) {
-    return /^\d{4,6}$/.test(value);
-  }
 
   async function handleSubmit() {
     if (!isValidPin(pin)) {
@@ -47,15 +45,7 @@ export default function Login() {
       <Text style={styles.title}>
         {mode === 'setup' ? 'Create your PIN' : 'Enter your PIN'}
       </Text>
-      <TextInput
-        style={styles.input}
-        value={pin}
-        onChangeText={setPin}
-        keyboardType="number-pad"
-        secureTextEntry
-        maxLength={6}
-        placeholder="••••"
-      />
+      <SecureInput value={pin} onChangeText={setPin} maxLength={6} />
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>
           {mode === 'setup' ? 'Set PIN' : 'Login'}
@@ -68,10 +58,6 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24, gap: 16 },
   title: { fontSize: 20, fontWeight: '600' },
-  input: {
-    borderWidth: 1, borderColor: '#ccc', borderRadius: 8,
-    padding: 12, width: '100%', textAlign: 'center', fontSize: 18, letterSpacing: 4,
-  },
   button: { backgroundColor: '#2563eb', padding: 14, borderRadius: 8, width: '100%' },
   buttonText: { color: 'white', textAlign: 'center', fontWeight: '600' },
 });
