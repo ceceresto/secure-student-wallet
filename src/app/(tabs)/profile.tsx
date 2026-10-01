@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { ProfileData, deleteProfile, getProfile, saveProfile } from '../business/profileStorage';
-import ProfileCard from '../components/ProfileCard';
+import { ProfileData, deleteProfile, getProfile, saveProfile } from '../../business/profileStorage';
+import ProfileCard from '../../components/ProfileCard';
 
 export default function Profile() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
