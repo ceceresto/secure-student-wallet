@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-export default function Dashboard() {
+export default function Preferences() {
   return (
     <View>
       <Text>Preferences</Text>

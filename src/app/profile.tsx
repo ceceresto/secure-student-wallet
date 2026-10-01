@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import ProfileCard from '../components/ProfileCard';
 import { ProfileData, deleteProfile, getProfile, saveProfile } from '../business/profileStorage';
+import ProfileCard from '../components/ProfileCard';
 
-export default function Dashboard() {
+export default function Profile() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [name, setName] = useState('');
   const [course, setCourse] = useState('');
   const [year, setYear] = useState('');
 
- useEffect(() => {
+  useEffect(() => {
     loadProfile();
   }, []);
 
@@ -40,7 +40,7 @@ export default function Dashboard() {
 
   return (
     <View style={styles.container}>
-       <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Profile</Text>
 
       {profile && <ProfileCard name={profile.name} course={profile.course} year={profile.year} />}
 
@@ -50,8 +50,7 @@ export default function Dashboard() {
 
       <Button title="Save" onPress={handleSave} />
       <View style={{ height: 8 }} />
-      <Button title="Delete" onPress={handleDelete} color="#c0392b" /> 
-      <Text>Profile</Text>
+      <Button title="Delete" onPress={handleDelete} color="#c0392b" />
     </View>
   );
 }
