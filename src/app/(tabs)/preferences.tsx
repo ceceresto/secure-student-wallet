@@ -1,9 +1,2 @@
-import { Text, View } from 'react-native';
+export { default } from '../../components/PreferencesScreen';
 
-export default function Preferences() {
-  return (
-    <View>
-      <Text>Preferences</Text>
-    </View>
-  );
-}
