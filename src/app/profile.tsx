@@ -44,9 +44,14 @@ export default function Profile() {
 
       {profile && <ProfileCard name={profile.name} course={profile.course} year={profile.year} />}
 
-      <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput style={styles.input} placeholder="Course" value={course} onChangeText={setCourse} />
-      <TextInput style={styles.input} placeholder="Year" value={year} onChangeText={setYear} />
+      <Text style={styles.label}>Name</Text>
+      <TextInput style={styles.input} placeholder="Enter your name" value={name} onChangeText={setName} />
+
+      <Text style={styles.label}>Course</Text>
+      <TextInput style={styles.input} placeholder="Enter your course" value={course} onChangeText={setCourse} />
+
+      <Text style={styles.label}>Year</Text>
+      <TextInput style={styles.input} placeholder="Enter your year level" value={year} onChangeText={setYear} />
 
       <Button title="Save" onPress={handleSave} />
       <View style={{ height: 8 }} />
@@ -58,12 +63,18 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
+    color: '#333',
+  },
   input: {
     borderWidth: 1,
     borderColor: '#555',
     borderRadius: 8,
     padding: 10,
     marginBottom: 12,
-    color: '#fff',
+    color: '#333',
   },
 });
