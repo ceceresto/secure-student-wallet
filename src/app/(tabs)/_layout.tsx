@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import { Text } from 'react-native';
 
 import { UserHeader } from '@/components/user-header';
+import { useAppColors } from '@/hooks/use-app-colors';
 import { useTheme } from '@/hooks/use-theme';
 
 // TODO: replace with the name saved in the Profile screen once it exists.
@@ -13,15 +14,16 @@ function TabIcon({ symbol, focused }: { symbol: string; focused: boolean }) {
 
 export default function TabsLayout() {
   const theme = useTheme();
+  const colors = useAppColors();
 
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: theme.primary,
-        tabBarInactiveTintColor: '#94a3b8',
+           tabBarInactiveTintColor: colors.muted,
         tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
         tabBarStyle: {
-          backgroundColor: '#ffffff',
+           backgroundColor: colors.card,
           borderTopWidth: 0,
           elevation: 12,
           shadowColor: '#000000',
@@ -29,7 +31,7 @@ export default function TabsLayout() {
           shadowRadius: 12,
           shadowOffset: { width: 0, height: -4 },
         },
-        sceneStyle: { backgroundColor: '#f6f7fb' },
+        sceneStyle: { backgroundColor: colors.screen },
         header: ({ options }) => (
           <UserHeader name={USER_NAME} subtitle={options.title} withSafeArea />
         ),
