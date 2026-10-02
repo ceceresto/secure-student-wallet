@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useAppColors } from "../../hooks/use-app-colors"; // DARK MODE
 
 export default function Dashboard() {
   // State demo: values that change live on the dashboard
   const [balance, setBalance] = useState(1500);
   const [hidden, setHidden] = useState(false);
   const [now, setNow] = useState(new Date());
+  const colors = useAppColors(); // DARK MODE
 
   // Live clock updates every second
   useEffect(() => {
@@ -14,14 +16,19 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.greeting}>Welcome back 👋</Text>
-      <Text style={styles.clock}>{now.toLocaleTimeString()}</Text>
+    <ScrollView
+      style={{ backgroundColor: colors.screen }} // DARK MODE
+      contentContainerStyle={[styles.container, { backgroundColor: colors.screen }]} // DARK MODE
+    >
+      <Text style={[styles.greeting, { color: colors.text }]}>Welcome back 👋</Text>{/* DARK MODE */}
+      <Text style={[styles.clock, { color: colors.muted }]}>{now.toLocaleTimeString()}</Text>{/* DARK MODE */}
 
       {/* Balance widget */}
-      <View style={styles.card}>
-        <Text style={styles.cardLabel}>Wallet Balance</Text>
-        <Text style={styles.balance}>{hidden ? "₱ ••••••" : `₱ ${balance.toFixed(2)}`}</Text>
+      <View style={[styles.card, { backgroundColor: colors.card }]}>{/* DARK MODE */}
+        <Text style={[styles.cardLabel, { color: colors.muted }]}>Wallet Balance</Text>{/* DARK MODE */}
+        <Text style={[styles.balance, { color: colors.text }]}>{/* DARK MODE */}
+          {hidden ? "₱ ••••••" : `₱ ${balance.toFixed(2)}`}
+        </Text>
         <View style={styles.row}>
           <TouchableOpacity style={styles.btn} onPress={() => setBalance(balance + 100)}>
             <Text style={styles.btnText}>+ ₱100</Text>
@@ -40,13 +47,13 @@ export default function Dashboard() {
 
       {/* Summary widgets */}
       <View style={styles.row}>
-        <View style={styles.smallCard}>
-          <Text style={styles.cardLabel}>Spent Today</Text>
-          <Text style={styles.value}>₱ 250</Text>
+        <View style={[styles.smallCard, { backgroundColor: colors.card }]}>{/* DARK MODE */}
+          <Text style={[styles.cardLabel, { color: colors.muted }]}>Spent Today</Text>{/* DARK MODE */}
+          <Text style={[styles.value, { color: colors.text }]}>₱ 250</Text>{/* DARK MODE */}
         </View>
-        <View style={styles.smallCard}>
-          <Text style={styles.cardLabel}>Savings</Text>
-          <Text style={styles.value}>₱ 600</Text>
+        <View style={[styles.smallCard, { backgroundColor: colors.card }]}>{/* DARK MODE */}
+          <Text style={[styles.cardLabel, { color: colors.muted }]}>Savings</Text>{/* DARK MODE */}
+          <Text style={[styles.value, { color: colors.text }]}>₱ 600</Text>{/* DARK MODE */}
         </View>
       </View>
     </ScrollView>
