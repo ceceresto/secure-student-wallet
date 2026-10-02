@@ -5,12 +5,17 @@ export default function SettingItem({
   description,
   value,
   onValueChange,
+  dark = false,
 }) {
   return (
-    <View style={styles.row}>
+    <View style={[styles.row, dark && styles.rowDark]}>
       <View style={styles.textWrap}>
-        <Text style={styles.label}>{label}</Text>
-        {!!description && <Text style={styles.desc}>{description}</Text>}
+        <Text style={[styles.label, dark && styles.labelDark]}>{label}</Text>
+        {!!description && (
+          <Text style={[styles.desc, dark && styles.descDark]}>
+            {description}
+          </Text>
+        )}
       </View>
       <Switch
         value={!!value}
@@ -31,7 +36,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#ddd',
   },
+  rowDark: { borderColor: '#374151' },
   textWrap: { flex: 1, paddingRight: 12 },
   label: { fontSize: 16, fontWeight: '500' },
+  labelDark: { color: '#fff' },
   desc: { fontSize: 13, color: '#666', marginTop: 2 },
+  descDark: { color: '#9ca3af' },
 });
