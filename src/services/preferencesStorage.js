@@ -5,7 +5,6 @@ const PREFS_KEY = 'wallet:preferences';
 export const DEFAULT_PREFERENCES = {
   biometricEnabled: false,
   notificationsEnabled: true,
-  hideBalance: false,
   darkMode: false,
 };
 

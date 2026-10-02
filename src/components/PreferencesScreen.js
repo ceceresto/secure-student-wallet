@@ -5,6 +5,7 @@ import SettingItem from './SettingItem';
 export default function PreferencesScreen() {
   const { prefs, setPref } = usePreferences();
   const dark = prefs.darkMode;
+
   const toggle = (key) => (value) => setPref(key, value);
 
   return (
@@ -12,16 +13,9 @@ export default function PreferencesScreen() {
       <Text style={[styles.section, dark && styles.sectionDark]}>Security</Text>
       <SettingItem
         label="Biometric login"
-        description="Use fingerprint or Face ID"
+        description="Unlock with your device's biometrics"
         value={prefs.biometricEnabled}
         onValueChange={toggle('biometricEnabled')}
-        dark={dark}
-      />
-      <SettingItem
-        label="Hide balance"
-        description="Mask your balance on the dashboard"
-        value={prefs.hideBalance}
-        onValueChange={toggle('hideBalance')}
         dark={dark}
       />
 
