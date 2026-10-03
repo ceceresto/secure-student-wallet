@@ -57,6 +57,13 @@ export default function TabsLayout() {
           tabBarIcon: ({ focused }) => <TabIcon symbol="⚙️" focused={focused} />,
         }}
       />
+      <Tabs.Screen
+        name="scan"
+        options={{
+          title: 'Scan',
+          tabBarIcon: ({ focused }) => <TabIcon symbol="📷" focused={focused} />,
+        }}
+      />
     </Tabs>
   );
 }
