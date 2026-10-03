@@ -1,12 +1,28 @@
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
+import { getProfile } from '@/business/profileStorage';
 import { UserHeader } from '@/components/user-header';
 import { useAppColors } from '@/hooks/use-app-colors';
 import { useTheme } from '@/hooks/use-theme';
 
-// TODO: replace with the name saved in the Profile screen once it exists.
-const USER_NAME = 'Student';
+const DEFAULT_NAME = 'Student';
+
+// Shows the name saved on the Profile tab. It reloads whenever the user
+// switches tabs, so a newly saved name appears on the next tab change.
+function TabHeader({ title }: { title?: string }) {
+  const pathname = usePathname();
+  const [name, setName] = useState(DEFAULT_NAME);
+
+  useEffect(() => {
+    getProfile()
+      .then((profile) => setName(profile?.name || DEFAULT_NAME))
+      .catch(() => setName(DEFAULT_NAME));
+  }, [pathname]);
+
+  return <UserHeader name={name} subtitle={title} withSafeArea />;
+}
 
 function TabIcon({ symbol, focused }: { symbol: string; focused: boolean }) {
   return <Text style={{ fontSize: 22, opacity: focused ? 1 : 0.45 }}>{symbol}</Text>;
@@ -32,9 +48,7 @@ export default function TabsLayout() {
           shadowOffset: { width: 0, height: -4 },
         },
         sceneStyle: { backgroundColor: colors.screen },
-        header: ({ options }) => (
-          <UserHeader name={USER_NAME} subtitle={options.title} withSafeArea />
-        ),
+        header: ({ options }) => <TabHeader title={options.title} />,
       }}>
       <Tabs.Screen
         name="dashboard"
