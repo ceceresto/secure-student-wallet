@@ -1,4 +1,4 @@
-import { isValidPin } from '@/business/auth';
+import { handleForgetPin, isValidPin } from '@/business/auth';
 import { SecureInput } from '@/components/SecureInput';
 import { usePreferences } from '@/hooks/use-preferences'; // BIOMETRIC 
 import { notify } from '@/services/notifications'; // NOTIFICATIONS
@@ -73,6 +73,13 @@ export default function Login() {
     }
   }
 
+  async function handleReset() {
+    await handleForgetPin();
+    setExistingPin(null);
+    setMode('setup');
+    setPin('');
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -85,10 +92,16 @@ export default function Login() {
         </Text>
       </Pressable>
 
-       {/* NEW: only shows when Biometric login is ON in Preferences */}
+          {/* NEW: only shows when Biometric login is ON in Preferences */}
       {mode === 'login' && prefs.biometricEnabled && (
         <Pressable style={styles.bioButton} onPress={handleBiometric}>
           <Text style={styles.bioText}>Use fingerprint / Face ID</Text>
+        </Pressable>
+      )}
+
+      {mode === 'login' && (
+        <Pressable style={styles.linkButton} onPress={handleReset}>
+          <Text style={styles.linkText}>Forgot PIN? Create a new one</Text>
         </Pressable>
       )}
 
@@ -103,4 +116,6 @@ const styles = StyleSheet.create({
   buttonText: { color: 'white', textAlign: 'center', fontWeight: '600' },
   bioButton: { padding: 14, borderRadius: 8, width: '100%', borderWidth: 1, borderColor: '#2563eb' }, // BIOMETRIC
   bioText: { color: '#2563eb', textAlign: 'center', fontWeight: '600' }, // BIOMETRIC
+  linkButton: { padding: 8 },
+  linkText: { color: '#2563eb', textAlign: 'center', fontSize: 13 },
 });

@@ -47,3 +47,7 @@ export async function clearSensitiveInfo(): Promise<void> {
   await deleteItem(PIN_KEY);
   await deleteItem(AUTH_TOKEN_KEY);
 }
+
+export async function clearAuthToken(): Promise<void> {
+  await deleteItem(AUTH_TOKEN_KEY);
+}
