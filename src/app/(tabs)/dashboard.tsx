@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { handleLogout } from "../../business/auth"; // LOGOUT
 import { useAppColors } from "../../hooks/use-app-colors"; // DARK MODE
 
 export default function Dashboard() {
@@ -20,7 +21,12 @@ export default function Dashboard() {
       style={{ backgroundColor: colors.screen }} // DARK MODE
       contentContainerStyle={[styles.container, { backgroundColor: colors.screen }]} // DARK MODE
     >
-      <Text style={[styles.greeting, { color: colors.text }]}>Welcome back 👋</Text>{/* DARK MODE */}
+      <View style={styles.headerRow}>
+        <Text style={[styles.greeting, { color: colors.text }]}>Welcome back 👋</Text>
+        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={[styles.clock, { color: colors.muted }]}>{now.toLocaleTimeString()}</Text>{/* DARK MODE */}
 
       {/* Balance widget */}
@@ -61,6 +67,9 @@ export default function Dashboard() {
 }
 
 const styles = StyleSheet.create({
+  headerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  logoutBtn: { backgroundColor: "#dc2626", paddingVertical: 8, paddingHorizontal: 12, borderRadius: 10 },
+  logoutText: { color: "#fff", fontWeight: "600", fontSize: 13 },
   container: { padding: 20, gap: 16, backgroundColor: "#ffffff", flexGrow: 1 },
   greeting: { fontSize: 24, fontWeight: "700", color: "#0f172a" },
   clock: { color: "#64748b", fontSize: 14 },
